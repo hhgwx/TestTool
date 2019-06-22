@@ -1,0 +1,27 @@
+{
+  "level" : 1,
+  "diffcute": 1,
+  "map_monster_json": [ "res/monster/1.json", "res/monster/2.json" ],
+  "map_road_png": [ "road/1.png" ],
+  "map_wall_png": [ "wall/1.png","wall/2.png","wall/3.png"],
+  "map_supriseBox_closed_png": [ "supriseBox/1.png", "supriseBox/2.png"],
+  "map_supriseBox_opened_png": [ "supriseBox/3.png", "supriseBox/4.png"],
+  "map_outDoor_png": [ "door/1.png" ],
+  "map_goldBox_per": 0.3,
+  "map": [[2,1,0,0,3,0,0,0,3,0]
+         ,[0,1,0,0,3,0,0,0,3,0]
+         ,[0,1,0,0,3,3,3,3,3,0]
+         ,[0,1,0,0,0,0,0,0,0,0]
+         ,[0,1,0,0,0,0,0,0,0,0]
+         ,[0,1,0,0,0,0,0,0,0,0]
+         ,[0,0,0,0,0,0,0,0,0,0]
+         ,[0,0,0,0,0,0,0,0,0,0]
+         ,[0,1,0,0,0,0,0,0,0,0]
+         ,[0,0,0,0,0,0,0,0,0,0]
+         ,[0,0,0,0,2,0,0,9,0,0]
+         ,[0,0,0,2,2,0,0,0,2,2]
+         ,[0,0,0,2,7,0,0,0,2,7]
+         ,[0,0,0,0,4,0,0,7,0,4]
+         ,[0,0,0,0,7,0,0,3,0,7]
+         ,[0,0,0,0,7,0,0,7,0,7]]
+}

@@ -1,0 +1,293 @@
+res
+	map
+		diffcute>>1:simale 2:normal 3:diffcute 4:hard
+		map_supriseBox_png>>1:normalBoxClosed 2:goldBoxClosed 3:normalBoxOpened 4:goldBoxOpened
+		map_goldBox_per>>goldBoxの可能性
+		special_per:第一位是只有一个特殊 第二位是有两个 第三位是有三个
+		special_value:0-7 对应特殊的值
+		autoMapWalkLen:自动制作地图时，一次横跨最大距离
+		autoMapMinBoxNum:自动制作地图时，最小box数
+		autoMapMaxBoxNum:自动制作地图时，最大box数
+		autoMapMinMonsterNum:自动制作地图时，最小怪物数
+		autoMapMaxMonsterNum:自动制作地图时，最大怪物数
+
+
+		
+	mono_wuqi
+		type>>1:toukui 2:yifu 3:dao 4:fushou 5:kuzi 6:xiezi 7:xianglian 8:jiezhi
+		level>>1:white 2:blue 3:gold 4:group
+		mapLevel>>1~100~300~ 
+		specialValue>>1:?? 2:??
+		specialValuePer>>specialValueの発生per
+		group
+			have2_type
+				0:addAttack
+				1:addDefect
+				2:addXue
+				3:addMo
+				4:addBaoji
+				5:addShanbi
+				6:addChuantou
+				7:addZhiwuxi
+				8:addDongwuxi
+				9:addOtherxi
+				10:addAllxi
+				11:addXingyun
+				12:addJingyan
+				13:addJinbi
+
+	mono_yaoshui
+		type>>0:yaoshui 1:moshui 2:qianghua 3....
+	monster
+		type>>0:dongwu 1:zhiwu 2:qita
+
+	user
+		yaoshuiCarry:yaoshuiPackage的下标
+
+zhiwuxi
+dongwuxi
+otherxi
+allxi
+
+https://www.cocos.com/docs/js/index.html
+
+经过一番探索终于在cocos2d的core包根目录下找到CCDirector.js这个文件。在里面找到 cc.Director._fpsImageLoaded = true，把true改为false即可
+
+        // 以（x,y）为左上角，width为宽，height为高的矩形
+        this.plane = cc.Sprite.create(s_Plane,cc.rect(2,168,62,75));
+
+  // 判断两个矩形是否碰撞
+                if(cc.rectIntersectsRect(bulletRect,targetRect)){
+
+
+//方式一，通过多张图片来创建
+        this.dragon = new cc.Sprite("res/player_animation/action1.png");
+        this.dragon.setPosition(cc.p(cc.winSize.width*0.3, cc.winSize.height/2));
+        this.addChild(this.dragon);
+ 
+        //创建帧动画序列，名词形式
+        var animation = new cc.Animation();
+        for (var i = 1; i <= 4; i++)
+        {
+            animation.addSpriteFrameWithFile("res/player_animation/action"+ i +".png");
+        }
+        //设置帧动画属性
+        animation.setDelayPerUnit(2.0 / 4);       //每一帧停留的时间
+        animation.setRestoreOriginalFrame(true);   //播放完后回到第一帧
+        var animate = new cc.Animate(animation);
+
+
+
+
+
+
+
+
+
+
+
+
+不过在这之前，一定要先把图片加载到内存当中去；其实你也可以不加，但是需要换另外一个函数就行；
+
+//将plist问价加载到内存当中
+cc.spriteFrameCache.addSpriteFrames(res.play_plist);
+
+第一种方法:
+
+创建一个空的精灵
+
+var sp = new cc.Sprite();
+sp.setTag(1000);
+sp.setPosition(500,400);
+this.addChild(sp,1);
+//定义一个数组 后面加中括号
+var allFrame = [];
+//for语句载入5个动画图片
+for(var i = 1; i < 4; i++){
+    //加载针动画，rect四个参数，前两个X,Y的坐标，默认0就OK,
+    //后面两个参数传图片的宽度和高度
+    var str = "enemyLeft1_"+i+".png";
+    var allf = cc.spriteFrameCache.getSpriteFrame(str);//new cc.SpriteFrame()
+
+    if(!allf){
+        cc.log("@@@@@@@");
+    }
+
+    allFrame.push(allf);
+}
+
+//每隔0.03秒切换一张图片
+var animation = new cc.Animation(allFrame,0.1);
+//把所有的动画连接起来进行播放
+var animate = new cc.Animate(animation);
+//重复的执行摸个动作
+var action = animate.repeatForever();//new cc.RepeatForever(animate)
+//用精灵来执行针动画，让针动画跑起来
+sp.runAction(action);
+
+第二种方法：
+同样要创建一个空的精灵
+var sp = new cc.Sprite();
+sp.setTag(1000);
+sp.setPosition(500,400);
+this.addChild(sp,1);
+
+for(var i = 1;i<=4;i++){
+    var frameName = "enemyLeft1_"+i+".png";
+    animation.addSpriteFrame(frameName);
+}
+
+animation.setDelayPerUnit(0.1);
+animation.setRestoreOriginalFrame(true);
+var action = cc.animate(animation).repeatForever();
+sp.runAction(action);
+
+这个就当着是一个笔记，看到的人希望能帮助你，谢谢
+--------------------- 
+作者：放梦追逐-李超 
+来源：CSDN 
+原文：https://blog.csdn.net/u013007305/article/details/50217239 
+版权声明：本文为博主原创文章，转载请附上博文链接！
+
+
+
+1.level select
+2.plus のper price
+3.baoji shanbi
+4.user level up
+5.unlock box
+6.diffcult level のimg name 変更
+
+7.sold del
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# -*- coding: utf-8 -*-
+"""
+-------------------------------------------------
+   File Name：     copyFile
+   Description :  复制多个文件并hash验证
+   Author :       Wayne Shaw
+   date：          2018/8/09
+-------------------------------------------------
+   Change Activity:
+                   2018/8/09:
+-------------------------------------------------
+"""
+# 1、创建1000多个不同类型文件
+import random
+ 
+filetypeL = ['.txt','.doc','.js','.css','.html','.py','.jar','.csv']
+for i in range(1024):
+  filetype = random.choice(filetypeL)
+  filename = str(i)+filetype
+  with open('./hash1000plus/'+filename,'wb') as f:
+    f.write(str(i).encode('utf-8'))
+# 2、复制文件
+import os, sys
+from multiprocessing import Pool
+from multiprocessing import Manager
+ 
+ 
+# 定义复制文件方法
+def copy_file(name, path, new_path, q):
+  os.listdir(path)
+  with open(path + "/" + name) as f:
+    with open(new_path + '/' + name, "w") as nf:
+      while True:
+        content = f.read(2048)
+        if content != '':
+          nf.write(content)
+        else:
+          break
+  q.put(name)
+ 
+def run():
+  # 原文件夹路径
+  path = "./hash1000plus"
+  # 新文件夹路径(含文件夹名)
+  new_path = "./copy1000plus"
+  # 创建新文件夹
+  os.mkdir(new_path)
+  filenameL = os.listdir(path)
+  pool = Pool(10)
+  # 创建队列用
+  q = Manager().Queue()
+  for name in filenameL:
+    pool.apply_async(copy_file, args=(name, path, new_path, q))
+ 
+  num = 0
+  allnum = len(filenameL)
+  # 设置复制结束条件,打印显示复制总进度
+  while num < allnum:
+    q.get()
+    num += 1
+    copyrate = int(num / allnum)
+    sys.stdout.write("\r 进度为：%.2f%%" % (copyrate * 100))
+    # 将缓冲区中的数据立刻写入文件，同时清空缓冲区
+    sys.stdout.flush()
+ 
+ 
+if __name__ == '__main__':
+  run()
+# 3、对文件夹每个文件做hash,验证文件复制是否成功
+import hashlib
+import os
+ 
+# 定义对文件做hash的方法
+def hashFile(filename):
+  h = hashlib.sha256()
+  with open(filename, 'rb') as f:
+    while True:
+      chunk = f.read(2048)
+      if not chunk:
+        break
+      h.update(chunk)
+  return h.hexdigest()
+ 
+fList = os.listdir('./hash1000plus')
+result = 1
+for file in fList:
+  if hashFile('./hash1000plus/'+file) != hashFile('./copy1000plus/'+file):
+    print(file+":复制不成功!")
+    result = 0
+    break
+if result != 0:
+  print('文件都已复制成功!')
+
+
+
+
+
+
+
+Function SumValueInText(TargetRange As Range) As Double
+    Dim mRegExp As RegExp
+    Dim mMatches As MatchCollection      '匹配字符串集合对象
+    Dim mMatch As Match        '匹配字符串
+
+    Set mRegExp = New RegExp
+    With mRegExp
+        .Global = True                              'True表示匹配所有, False表示仅匹配第一个符合项
+        .IgnoreCase = True                          'True表示不区分大小写, False表示区分大小写
+        .Pattern = "([0-9])?[.]([0-9])+|([0-9])+"   '匹配字符模式
+        Set mMatches = .Execute(TargetRange.Text)   '执行正则查找，返回所有匹配结果的集合，若未找到，则为空
+        For Each mMatch In mMatches
+            SumValueInText = SumValueInText + CDbl(mMatch.Value)
+        Next
+    End With
+    
+    Set mRegExp = Nothing
+    Set mMatches = Nothing
+End Function

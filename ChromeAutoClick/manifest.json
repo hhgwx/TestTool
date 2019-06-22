@@ -1,0 +1,27 @@
+{ 
+  "name": "AutoClick",
+  "version": "1.0",
+  "manifest_version":2,
+  "description": "This is a auto click plug-in, you can use it in the web site",
+  "icons":{"16":"icon.png","48":"icon.png","128":"icon.png"},
+  "permissions": ["http://*/*"],
+  "browser_action": {
+        "default_icon": "icon.png",
+        "default_popup": "popup.html"
+  }, 
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts":[
+  {
+      "matches":["file:///C:/Users/eheyadm/Desktop/a.html"],
+      "js":["jquery.js","a.js"],
+      "run_at": "document_end"
+  },
+  {
+      "matches":["file:///C:/Users/eheyadm/Desktop/b*.html"],
+      "js":["jquery.js","b.js"],
+      "run_at": "document_end"
+  }
+  ]
+}

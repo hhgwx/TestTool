@@ -1,0 +1,48 @@
+{
+  "name" : "gg",
+  "level": 1,
+  "property": [5,2,50,10,0,0,0,0,0,0,0,0,0,0],
+
+  "attack" : 5,
+  "defect" : 2,
+
+  "xueNow" : 50,
+  "moNow" : 10,
+  "jingyanNow" : 0,
+  "jingyanAll" : 20,
+
+  "jinbi": 10,
+  "zuanshi": 1000,
+
+  "selectLevel" : 1,
+  "selectDiffcute": 0,
+  "maxLevel" : 10,
+  "maxDiffcute": 1,
+
+  "wuqiCarry": [["","","","","","","",""],["","","","","","","",""]],
+  "yaoshuiCarry": [-1,-1,0,-1,-1],
+  "wuqiPackage": [],
+  "yaoshuiPackage": ["001_001","001_002","001_003","001_004","001_005","001_006"],
+  "yaoshuiNum": [1,2,3,4,5,6],
+  "openedPackageNum": 24,
+
+  "wuqiPackageHome": [],
+  "yaoshuiPackageHome": ["001_001","001_001"],
+  "yaoshuiNumHome": [1000,45],
+  "openedPackageHomeNum": 10,
+
+
+  "baseAttack": 5,
+  "baseDefect": 2,
+  "baseXue": 50,
+  "baseMo": 10,
+
+  "leftPoint": 15,
+  "addPoint": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+  "activeJineng": [],
+
+  "person_items": [["001_001"],[],[{"id":"001_002","plusLevel":0,"property":[10,2,0,0],"special_type":[0,2],"special_value":[10,30],"add_type":[],"add_value":[]},{"id":"001_002","plusLevel":0,"property":[10,2,0,0],"special_type":[1],"special_value":[10],"add_type":[],"add_value":[]}]],
+  "person_items_number": [[1],[],[1,1]]
+
+
+}

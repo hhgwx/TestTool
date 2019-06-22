@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+var colorBase = "#EEEEEE";
+var colorDouble = "#DDDDDD";
+var nowType=0;
+var scoreAll = 0;
+var scoreLevel = 1;
+var scoreType = [0,4,4,4,4,4,1,2,3,6,5,5,3,4,6,4,5];
+var type = [];
+type[0] =  [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+type[1] =  [[0,1,0,0],[0,1,0,0],[0,1,0,0],[0,1,0,0]];//shu
+type[2] =  [[0,0,0,0],[0,0,0,0],[0,1,1,0],[0,1,1,0]];//fangkuai
+type[3] =  [[0,0,0,0],[0,1,0,0],[0,1,0,0],[0,1,1,0]];//
+type[4] =  [[0,0,0,0],[0,0,1,0],[0,0,1,0],[0,1,1,0]];
+type[5] =  [[0,0,0,0],[0,0,0,0],[0,1,0,0],[1,1,1,0]];
+type[6] =  [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,1,0,0]];
+type[7] =  [[0,0,0,0],[0,0,0,0],[0,1,0,0],[0,1,0,0]];
+type[8] =  [[0,0,0,0],[0,1,0,0],[0,1,0,0],[0,1,0,0]];
+type[9] =  [[0,1,0,0],[0,1,0,0],[0,1,0,0],[0,1,1,1]];
+type[10] = [[0,0,0,0],[0,1,0,0],[0,1,0,0],[1,1,1,0]];
+type[11] = [[0,0,0,0],[0,1,0,0],[1,1,1,0],[0,1,0,0]];
+type[12] = [[0,0,0,0],[0,1,0,0],[0,1,0,0],[0,0,1,0]];
+type[13] = [[0,0,0,0],[0,1,0,0],[0,1,0,0],[0,0,1,1]];
+type[14] = [[1,0,0,0],[1,0,0,0],[1,0,0,0],[0,1,1,1]];
+type[15] = [[0,0,0,0],[0,0,0,0],[1,1,0,0],[0,1,1,0]];
+type[16] = [[0,0,0,0],[1,1,0,0],[0,1,0,0],[0,1,1,0]];
+
+var boxSize = 20; // 2の倍数
+var boxArr =[[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+			,[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];
+
+var nowStartX = boxSize/2-2;
+var nowStartY = boxSize-4;
+
+var startFlg = false;
+//startボタンをクリック
+function Start(){
+	scoreAll = 0;
+	startFlg = true;
+	createNew(-1,nowStartX,nowStartY);
+	var input = document.getElementById("startButton");
+	input.blur();
+}
+
+//新しいTypeを作成
+function createNew(indexType,startX,startY){
+	//初期化
+	for (var y=0;y<4;y++) {
+		for (var x=0;x<4;x++) {
+			if (nowStartX+x >=0 && nowStartY+y<boxSize) {
+				fillOneRect("#FFFFFF",nowStartX + x,nowStartY + y);
+			}
+		}
+	}
+
+	if (startX<nowStartX) { //left
+		if (startX<0 && type[indexType][0][nowStartX*(-1)]!=1 && type[indexType][1][nowStartX*(-1)] !=1 && type[indexType][2][nowStartX*(-1)] !=1 && type[indexType][3][nowStartX*(-1)] != 1) {
+			nowStartX = startX;
+		} else if (startX >= 0 ) {
+			nowStartX = startX;
+		} else {
+			startX = nowStartX;
+		}
+	}
+	if (startX>nowStartX) { //right
+		if (startX>boxSize-4 && type[indexType][0][boxSize-nowStartX-1]!=1 && type[indexType][1][boxSize-nowStartX-1] !=1 && type[indexType][2][boxSize-nowStartX-1] !=1 && type[indexType][3][boxSize-nowStartX-1] != 1) {
+			nowStartX = startX;
+		} else if (startX+4 <= boxSize) {
+			nowStartX = startX;
+		} else {
+			startX = nowStartX;
+		}
+	}
+	nowStartY = startY;
+
+	if (indexType == -1) {
+		nowStartX = boxSize/2-2;
+		nowStartY = boxSize-4;
+		indexType = Math.floor(Math.random()*11)+1; //可均衡获取1到10的随机整数
+	}
+
+	for (var y=0;y<4;y++) {
+		for (var x=0;x<4;x++) {
+			if (type[indexType][y][x] == 1) {
+				fillOneRect(colorBase,nowStartX + x,nowStartY + y);
+			}
+		}
+	}
+
+	nowType = indexType;
+	checkMatch(false);
+}
+
+//matchエリアを検索
+function checkMatch(delFlg){
+	var startYTemp = boxArr.length-1;
+	var okFlg = true;
+	for (;startYTemp>=-3;startYTemp--) {
+		okFlg = true;
+		for (var y=0;y<4;y++) {
+			for (var x=0;x<4;x++) {
+				if (type[nowType][y][x] == 1) {
+					if (startYTemp+y < 0 || (startYTemp+y == 0 && boxArr[startYTemp+y][nowStartX+x] != 1)) {
+						return;
+					} else if (startYTemp+y < boxArr.length && boxArr[startYTemp+y][nowStartX+x] == 1) {
+						continue;
+					} else {
+						okFlg = false;
+						x=4;
+						y=4;
+					}
+				}
+			}
+		}
+		if (okFlg) {
+			break;
+		}
+	}
+	//OKの場合
+	for (var y=0;y<4;y++) {
+		for (var x=0;x<4;x++) {
+			if (type[nowType][y][x] == 1) {
+				if (delFlg) {
+					fillOneRect("#FFFFFF",nowStartX+x,startYTemp+y);
+					boxArr[startYTemp+y][nowStartX+x] = 0;
+				} else {
+					fillOneRect(colorDouble,nowStartX+x,startYTemp+y);
+				}
+			}
+		}
+	}
+	return true;
+}
+
+//指定indexのRectをdraw
+function fillOneRect(color,indexX,indexY){
+	ctx.fillStyle=color;
+	ctx.fillRect(10*indexX+1,10*indexY+1,2,2);
+}
+
+//changeTypeのdirect
+function changeTypeDirect(){
+	var typeTemp =  [[type[nowType][3][0],type[nowType][2][0],type[nowType][1][0],type[nowType][0][0]]
+					,[type[nowType][3][1],type[nowType][2][1],type[nowType][1][1],type[nowType][0][1]]
+					,[type[nowType][3][2],type[nowType][2][2],type[nowType][1][2],type[nowType][0][2]]
+					,[type[nowType][3][3],type[nowType][2][3],type[nowType][1][3],type[nowType][0][3]]];
+	type[nowType] = typeTemp;
+
+	createNew(nowType,nowStartX,nowStartY);
+}
+
+//key
+function keyCheck(e){
+	var keynum;
+	var keychar;
+	if(window.event){
+		keynum=e.keyCode;
+	}
+	else{
+		keynum=e.which;
+	}
+	keychar = String.fromCharCode(keynum);
+	if(keychar=="B"){
+		alert("返回上一个画面");
+	}
+}
+</script>
+</head>
+
+<body>
+<canvas id="myCanvas" width="201" height="200" style="border:0px solid #000000;" onkeydown="keyCheck(event)"></canvas>
+<br />
+<button id="startButton" onclick="Start();"><span style="font-size:5px">S</span></button>
+<span id="outScore" style="font-size:5px">0</span>
+
+<script>
+var c=document.getElementById("myCanvas");
+var ctx=c.getContext("2d");
+initBox();
+//初期化上部
+function initBox(){
+	for(var y=0;y<boxArr.length;y++){
+		for(var x=0;x<boxArr[0].length;x++){
+			if (boxArr[y][x] == 1) {
+				fillOneRect(colorBase,x,y);
+			}
+		}
+	}
+}
+
+window.addEventListener("keydown",
+	function (e) {
+		var keynum;
+		var keychar;
+		if(window.event){
+			keynum=e.keyCode;
+		}
+		else{
+			keynum=e.which;
+		}
+		keychar = String.fromCharCode(keynum);
+//		alert(keychar);
+		if(keychar==" "){
+			//space
+			changeTypeDirect();
+		}if(keynum== 38 ||keynum==87){ // up or w
+			if (checkMatch(true)) {
+				scoreAll = scoreAll + scoreLevel*scoreType[nowType];
+				document.getElementById("outScore").innerHTML=scoreAll;
+				createNew(-1,nowStartX,nowStartY);
+			}
+		}else if(keynum==39 || keynum==68){ // right or d
+			initBox();
+			createNew(nowType,nowStartX+1,nowStartY);
+		}else if(keynum==40 || keynum ==83){ // down or s
+			changeTypeDirect();
+		}else if(keynum==37 || keynum ==65){ // left or a
+			initBox();
+			createNew(nowType,nowStartX-1,nowStartY);
+		}
+	},false);
+
+</script>
+</body>
+</html>

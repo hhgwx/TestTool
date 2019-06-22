@@ -1,0 +1,11 @@
+listview.items[i].EnsureVisible(); 其中，listview.items[i]就是你想要显示的行。
+this.listBox1.TopIndex
+
+<TextBox
+Name="Tb1"
+TextWrapping="Wrap"
+AcceptsReturn="True"
+VerticalScrollBarVisibility="Visible"
+>
+
+AcceptsReturn="True" VerticalScrollBarVisibility="Visible"

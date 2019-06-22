@@ -1,0 +1,39 @@
+﻿<Window x:Class="ReNameTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ReNameTool"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="250" Width="400" Closing="Window_Closing">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="文件夹：" VerticalAlignment="Center" HorizontalAlignment="Right" Width="50" Height="15"></TextBlock>
+            <TextBox Name="text_folder" VerticalAlignment="Center" HorizontalAlignment="Left" Width="280" Height="20" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding TextPath}"></TextBox>
+            <TextBlock Text="替换选项：" VerticalAlignment="Center" HorizontalAlignment="Right" Width="60" Height="15" Grid.Row="1"></TextBlock>
+            <CheckBox Name="radio_folder" Content="文件夹名替换" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" Height="15" Grid.Row="1" Grid.Column="1" IsChecked="{Binding CheckFolder}"></CheckBox>
+            <CheckBox Name="radio_file" Content="文件名替换" VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="15" Grid.Row="1" Grid.Column="2" IsChecked="{Binding CheckFile}"></CheckBox>
+            <CheckBox Name="radio_subFolder" Content="子文件夹" VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="15" Grid.Row="1" Grid.Column="3" IsChecked="{Binding CheckSubFolder}"></CheckBox>
+            <TextBlock Text="要替换文字列表：" VerticalAlignment="Top" HorizontalAlignment="Right" Width="95" Height="15" Grid.Row="2" Grid.Column="0"></TextBlock>
+            <TextBox Name="text_from" VerticalAlignment="Top" HorizontalAlignment="Left" Width="280" Height="70" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Text="{Binding TextFrom}"></TextBox>
+            <TextBlock Text="替换为文字：" VerticalAlignment="Center" HorizontalAlignment="Right" Width="72" Height="15" Grid.Row="3" Grid.Column="0"></TextBlock>
+            <TextBox Name="text_to" VerticalAlignment="Center" HorizontalAlignment="Left" Width="280" Height="20" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding TextTo}"></TextBox>
+
+            <Button Name="button_reset" Content="清空" VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="25" Click="button_reset_Click" Grid.Row="4" Grid.ColumnSpan="1" FontSize="14"></Button>
+            <Button Name="button_replace" Content="替换" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Height="25" Click="button_replace_Click" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" FontSize="14"></Button>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,9 @@
+{
+    "name" : "gg",
+    "attack" : 15,
+    "defect" : 10,
+    "xue" : 10,
+    "mo" : 10,
+    "selectLevel" : 1,
+    "selectDiffcute" : 1
+}

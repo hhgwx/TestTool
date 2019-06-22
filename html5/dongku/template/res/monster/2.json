@@ -1,0 +1,11 @@
+{
+  "name": "monster",
+  "pic": "monster/2.png",
+  "pic_att" : "monster/2.png",
+  "attack" : 10,
+  "defect" : 10,
+  "xue" : 10,
+  "mo" : 10,
+  "dropYaoshui":  "001_001",
+  "dropYaoshuiPer":  0.5
+}

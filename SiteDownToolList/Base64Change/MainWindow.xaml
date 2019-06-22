@@ -1,0 +1,40 @@
+﻿<Window x:Class="Base64Change.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Base64Change"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="150" Width="600">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="选择批量文件：" VerticalAlignment="Center" HorizontalAlignment="Right" Width="110" Height="16" FontSize="16"></TextBlock>
+            <TextBox Name="text_fileName" Width="280" Height="25" Grid.ColumnSpan="2" Grid.Column="1" Text="{Binding FileName}"></TextBox>
+            <Button Name="button_selectFile" Content="选择文件" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="button_selectFile_Click" Grid.Column="3" Width="100" Height="26" FontSize="16" Margin="25,0,25,2"></Button>
+
+            <RadioButton Name="radio_TxtToBase64" Content="TxtToBase64" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" IsChecked="{Binding TxtToBase64}" GroupName="radioGroup"></RadioButton>
+            <RadioButton Name="radio_ZipToBase64" Content="ZipToBase64" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" IsChecked="{Binding ZipToBase64}" GroupName="radioGroup"></RadioButton>
+            <RadioButton Name="radio_Base64ToTxt" Content="Base64ToTxt" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2" IsChecked="{Binding Base64ToTxt}" GroupName="radioGroup"></RadioButton>
+            <RadioButton Name="radio_Base64ToZip" Content="Base64ToZip" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3" IsChecked="{Binding Base64ToZip}" GroupName="radioGroup"></RadioButton>
+
+            <Button Name="button_replace" Content="转换" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Height="25" Click="button_replace_Click" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"></Button>
+
+            <TextBlock Text="{Binding ResultMsg}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="4" Grid.Row="3"></TextBlock>
+        </Grid>
+    </Grid>
+</Window>
+

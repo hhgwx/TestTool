@@ -1,0 +1,94 @@
+<html>
+<script language='javascript' type='text/javascript'>
+var allPageNum=3;
+var nowPageNum=0;
+
+function lastPage() {
+	if(nowPageNum > 1){
+		nowPageNum = nowPageNum - 1;
+		document.getElementById('showMain_area').innerHTML 
+			= document.getElementById('div_' + nowPageNum).innerHTML
+			+ document.getElementById('div_changePage').innerHTML
+			+ document.getElementById('div_toTop').innerHTML;;
+	}
+}
+function nextPage() {
+	if(nowPageNum < allPageNum){
+		nowPageNum = nowPageNum + 1;
+		document.getElementById('showMain_area').innerHTML
+			= document.getElementById('div_' + nowPageNum).innerHTML
+			+ document.getElementById('div_changePage').innerHTML
+			+ document.getElementById('div_toTop').innerHTML;
+;
+	}
+}
+function changePageTo(pageNum) {
+	if (pageNum < 1) {
+		pageNum = 1;
+	} else if (pageNum > allPageNum) {
+		pageNum = allPageNum;
+	}
+
+	document.getElementById('showMain_area').innerHTML
+		= document.getElementById('div_' + pageNum).innerHTML 
+		+ document.getElementById('div_changePage').innerHTML
+		+ document.getElementById('div_toTop').innerHTML;
+	nowPageNum = pageNum;
+}
+function allPage() {
+	var waitToShow = "";
+
+	for (var i=1;i<=allPageNum;i++){
+		waitToShow = waitToShow + 
+			document.getElementById('div_' + i).innerHTML;
+	}
+	waitToShow = waitToShow + document.getElementById('div_toTop').innerHTML;
+	document.getElementById('showMain_area').innerHTML = waitToShow;
+}
+function toTop() {
+	document.getElementById('showMain_area').innerHTML = document.getElementById('div_top').innerHTML;
+}
+</script>
+<body align='center'>
+
+<script type='text/x-template' id='div_top'>
+<a href='#' onclick='allPage()'>allPage</a><br/>
+<a href='#' onclick='changePageTo(1)'>Page1</a><br/>
+<a href='#' onclick='changePageTo(2)'>Page2</a><br/>
+<a href='#' onclick='changePageTo(3)'>Page3</a><br/>
+<a href='#' onclick='changePageTo(4)'>Page4</a><br/>
+</script>
+
+<script type='text/x-template' id='div_1'>
+aaa
+<BR/>
+</script>
+<script type='text/x-template' id='div_2'>
+bbb
+<BR/>
+</script>
+<script type='text/x-template' id='div_3'>
+ccc
+<BR/>
+</script>
+<script type='text/x-template' id='div_all'>
+aaabbbddd
+<BR/>
+</script>
+<script type='text/x-template' id='div_changePage'>
+<a href='#' onclick='lastPage()'>lastPage</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href='#' onclick='nextPage()'>nextPage</a>
+<BR/>
+</script>
+<script type='text/x-template' id='div_toTop'>
+<a href='#' onclick='toTop()'>Top</a>
+<BR/>
+</script>
+
+<div id="showMain_area"></div>
+
+<script language='javascript' type='text/javascript'>
+document.getElementById('showMain_area').innerHTML=document.getElementById('div_top').innerHTML;
+</script>
+</body>
+</html>

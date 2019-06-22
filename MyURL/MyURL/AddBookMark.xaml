@@ -1,0 +1,22 @@
+﻿<Window x:Class="MyURL.AddBookMark"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyURL"
+        mc:Ignorable="d"
+        Title="AddBookMark" Height="234" Width="300" Closed="Window_Closed">
+    <Grid>
+        <Grid>
+            <Label x:Name="label_ShuoMing" Content="说明" HorizontalAlignment="Left" Margin="5,31,0,0" VerticalAlignment="Top" Height="21" Width="70"/>
+            <TextBox x:Name="textBox_ShuoMing" HorizontalAlignment="Left" Height="23" Margin="83,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" KeyDown="textBox_ShuoMing_KeyDown"/>
+            <Label x:Name="label_Url" Content="URL(参数$1)" HorizontalAlignment="Left" Margin="5,60,0,0" VerticalAlignment="Top" Height="21" Width="78"/>
+            <TextBox x:Name="textBox_Url" HorizontalAlignment="Left" Height="23" Margin="83,61,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" KeyDown="textBox_Url_KeyDown"/>
+            <Label x:Name="label_User" Content="USER" HorizontalAlignment="Left" Margin="5,92,0,0" VerticalAlignment="Top" Height="21" Width="70"/>
+            <TextBox x:Name="textBox_User" HorizontalAlignment="Left" Height="23" Margin="83,92,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" KeyDown="textBox_User_KeyDown"/>
+            <Label x:Name="label_Psw" Content="PASSWORD" HorizontalAlignment="Left" Margin="5,123,0,0" VerticalAlignment="Top" Height="21" Width="83"/>
+            <TextBox x:Name="textBox_Psw" HorizontalAlignment="Left" Height="23" Margin="83,123,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" KeyDown="textBox_Psw_KeyDown"/>
+            <Button x:Name="button" Content="追加" HorizontalAlignment="Center" Height="28" Margin="0,161,0,0" VerticalAlignment="Top" Width="106" Click="button_Click"/>
+        </Grid>
+    </Grid>
+</Window>
