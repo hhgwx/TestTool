@@ -14,4 +14,26 @@ namespace ReNameTool
 	public partial class App : Application
 	{
 	}
+
+	//https://blog.csdn.net/martin_cheng/article/details/41351013
+	//让main函数接受参数
+	class Program
+	{
+		public static string inputArgu = "";
+		[STAThread]
+		public static void Main(string[] args)
+		{
+			if (args.Length >= 1)
+			{
+				inputArgu = args[0];
+				//MessageBox.Show(inputArgu);
+			}
+
+			App app = new App();
+			app.InitializeComponent();
+			//MainWindow mainWindow = new MainWindow();
+			//app.MainWindow = mainWindow;
+			app.Run();
+		}
+	}
 }

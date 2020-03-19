@@ -7,14 +7,17 @@ using System.Threading.Tasks;
 
 namespace ReNameTool
 {
-	class DataForm : INotifyPropertyChanged
-	{
-		private String _TextPath;
-		private Boolean _CheckFolder;
-		private Boolean _CheckFile;
-		private Boolean _CheckSubFolder;
-		private String _TextFrom;
-		private String _TextTo;
+    class DataForm : INotifyPropertyChanged
+    {
+        private String _TextPath;
+        private Boolean _CheckFolder;
+        private Boolean _CheckFile;
+        private Boolean _CheckSubFolder;
+        private String _TextFrom;
+        private String _TextTo;
+
+        private String _ReplaceType;
+        private String[] _TextToArr = {"", "", ""};
 
 		public String TextPath
 		{
@@ -92,6 +95,29 @@ namespace ReNameTool
 				OnPropertyChanged("TextTo");
 			}
 		}
+
+        public String ReplaceType
+        {
+            get
+            {
+                return _ReplaceType;
+            }
+            set
+            {
+                _ReplaceType = value;
+                OnPropertyChanged("ReplaceType");
+            }
+        }
+
+        public void setTextToArr(int index, String value)
+        {
+            _TextToArr[index] = value;
+        }
+
+        public String getTextToArr(int index)
+        {
+            return _TextToArr[index];
+        }
 
 		public event PropertyChangedEventHandler PropertyChanged;
 		protected void OnPropertyChanged(string propertyName)

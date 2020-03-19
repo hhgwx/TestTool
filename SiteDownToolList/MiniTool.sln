@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteDownLoad", "SiteDownLoad\SiteDownLoad.csproj", "{29852798-75D8-4782-B878-179D4743C26D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReNameTool", "ReNameTool\ReNameTool.csproj", "{B9D0E0F7-BD94-4CD0-8EF2-5A677EEF10B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReNameTool", "ReNameTool\ReNameTool.csproj", "{B3FC9588-A170-42F9-B749-8C3695F5B73D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReplaceColor", "ReplaceColor\ReplaceColor.csproj", "{254DF450-90B8-42FF-80D0-8DDB5B1F6527}"
 EndProject
@@ -35,10 +35,10 @@ Global
 		{29852798-75D8-4782-B878-179D4743C26D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29852798-75D8-4782-B878-179D4743C26D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29852798-75D8-4782-B878-179D4743C26D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B9D0E0F7-BD94-4CD0-8EF2-5A677EEF10B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9D0E0F7-BD94-4CD0-8EF2-5A677EEF10B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9D0E0F7-BD94-4CD0-8EF2-5A677EEF10B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9D0E0F7-BD94-4CD0-8EF2-5A677EEF10B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3FC9588-A170-42F9-B749-8C3695F5B73D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3FC9588-A170-42F9-B749-8C3695F5B73D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3FC9588-A170-42F9-B749-8C3695F5B73D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3FC9588-A170-42F9-B749-8C3695F5B73D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{254DF450-90B8-42FF-80D0-8DDB5B1F6527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{254DF450-90B8-42FF-80D0-8DDB5B1F6527}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{254DF450-90B8-42FF-80D0-8DDB5B1F6527}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -78,5 +78,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {520609EA-4D02-4FC6-B319-ED3E72F14599}
 	EndGlobalSection
 EndGlobal
