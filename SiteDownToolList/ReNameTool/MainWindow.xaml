@@ -34,6 +34,7 @@
             <TextBox Name="text_from" VerticalAlignment="Top" HorizontalAlignment="Left" Width="280" Height="70" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Text="{Binding TextFrom}"></TextBox>
             <TextBlock Text="替换为：" VerticalAlignment="Center" HorizontalAlignment="Right" Height="15" Grid.Row="3" Grid.Column="0"></TextBlock>
             <ComboBox x:Name="replaceType" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="165" SelectedValue="{Binding ReplaceType}" SelectionChanged="replaceType_SelectionChanged" />
+            <CheckBox Name="radio_cameraTime" Content="拍摄时间优先" VerticalAlignment="Center" HorizontalAlignment="Center" Height="15" Grid.Row="3" Grid.Column="3" IsChecked="{Binding CheckPaishe}"></CheckBox>
             <TextBox Name="text_to" VerticalAlignment="Center" HorizontalAlignment="Left" Width="280" Height="20" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding TextTo}"></TextBox>
 
             <Button Name="button_reset" Content="清空" VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="25" Click="button_reset_Click" Grid.Row="5" Grid.ColumnSpan="1" FontSize="14"></Button>

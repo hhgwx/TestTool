@@ -13,6 +13,7 @@ namespace ReNameTool
         private Boolean _CheckFolder;
         private Boolean _CheckFile;
         private Boolean _CheckSubFolder;
+        private Boolean _CheckPaishe;
         private String _TextFrom;
         private String _TextTo;
 
@@ -70,7 +71,19 @@ namespace ReNameTool
 			}
 		}
 
-		public String TextFrom
+        public Boolean CheckPaishe
+        {
+            get
+            {
+                return _CheckPaishe;
+            }
+            set
+            {
+                _CheckPaishe = value;
+                OnPropertyChanged("CheckPaishe");
+            }
+        }
+        public String TextFrom
 		{
 			get
 			{

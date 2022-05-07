@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Text;
 using System.Windows;
 
 namespace ReNameTool
@@ -20,7 +22,8 @@ namespace ReNameTool
 			dataForm.CheckFile = true;
 			dataForm.CheckFolder = false;
 			dataForm.CheckSubFolder = true;
-			dataForm.TextPath = "";
+            dataForm.CheckPaishe = true;
+            dataForm.TextPath = "";
 			InitializeComponent();
 
 			this.DataContext = dataForm;
@@ -53,7 +56,8 @@ namespace ReNameTool
 			dataForm.CheckFolder = myReg.getRegBoolValue("CheckFolder");
 			dataForm.CheckFile = myReg.getRegBoolValue("CheckFile");
 			dataForm.CheckSubFolder = myReg.getRegBoolValue("CheckSubFolder");
-			dataForm.TextFrom = myReg.getRegValue("TextFrom");
+            dataForm.CheckPaishe = myReg.getRegBoolValue("CheckPaishe");
+            dataForm.TextFrom = myReg.getRegValue("TextFrom");
 			//this.replaceType.SelectedValue = myReg.getRegValue("ReplaceType");
 			dataForm.ReplaceType = myReg.getRegValue("ReplaceType");
 			dataForm.setTextToArr(0, myReg.getRegValue("TextTo0"));
@@ -87,7 +91,8 @@ namespace ReNameTool
 			dataForm.CheckFile = true;
 			dataForm.CheckFolder = false;
 			dataForm.CheckSubFolder = true;
-			dataForm.TextFrom = "";
+            dataForm.CheckPaishe = true;
+            dataForm.TextFrom = "";
 			dataForm.ReplaceType = "0";
 			dataForm.TextTo = "";
 			dataForm.setTextToArr(0,"");
@@ -107,12 +112,12 @@ namespace ReNameTool
 
 			dataForm.setTextToArr(int.Parse(dataForm.ReplaceType), dataForm.TextTo);
 
-			changeName(dataForm.TextPath, dataForm.CheckFolder, dataForm.CheckFile, dataForm.CheckSubFolder);
+			changeName(dataForm.TextPath, dataForm.CheckFolder, dataForm.CheckFile, dataForm.CheckSubFolder, dataForm.CheckPaishe);
 
 			MessageBox.Show("替换完成");
 		}
 
-		private void changeName(String path, Boolean folderFlg, Boolean fileFlg, Boolean subFlg)
+		private void changeName(String path, Boolean folderFlg, Boolean fileFlg, Boolean subFlg, Boolean paishe)
 		{
 			if (!path.EndsWith(@"\") && !path.EndsWith(@"/"))
 			{
@@ -136,10 +141,11 @@ namespace ReNameTool
 					nameFrom = file.Replace(path, "");
 					nameTo = nameFrom;
 
-					nameMain = nameFrom.Substring(0, nameFrom.LastIndexOf("."));
+                    nameMain = nameFrom.Substring(0, nameFrom.LastIndexOf("."));
 					nameSuff = nameFrom.Substring(nameFrom.LastIndexOf("."));
+                    
 
-					string[] textFromArr = dataForm.TextFrom.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                    string[] textFromArr = dataForm.TextFrom.Split(new string[] { "\r\n" }, StringSplitOptions.None);
 					for (int i = 0; i < textFromArr.Length; i++)
 					{
 						if (dataForm.ReplaceType == "0")
@@ -150,44 +156,72 @@ namespace ReNameTool
 						else
 						{
 							FileInfo fi = new FileInfo(file);
-							if (dataForm.ReplaceType == "1")
-							{
-								//作成时间
-								DateTime time = fi.CreationTime;
-								replaceToStrEdit = dataForm.TextTo;
-								replaceToStrEdit = replaceToStrEdit.Replace("YYYY", time.Year+"");
-								replaceToStrEdit = replaceToStrEdit.Replace("MM", (time.Month + "").PadLeft(2,'0'));
-								replaceToStrEdit = replaceToStrEdit.Replace("DD", (time.Day + "").PadLeft(2, '0'));
+                            DateTime time;
 
-								replaceToStrEdit = replaceToStrEdit.Replace("HH", (time.Hour + "").PadLeft(2, '0'));
-								replaceToStrEdit = replaceToStrEdit.Replace("MI", (time.Minute + "").PadLeft(2, '0'));
-								replaceToStrEdit = replaceToStrEdit.Replace("SS", (time.Second + "").PadLeft(2, '0'));
-							}
-							else if (dataForm.ReplaceType == "2")
-							{
-								//更新时间
-								DateTime time = fi.LastWriteTime;
-								replaceToStrEdit = dataForm.TextTo;
-								replaceToStrEdit = replaceToStrEdit.Replace("YYYY", time.Year + "");
-								replaceToStrEdit = replaceToStrEdit.Replace("MM", (time.Month + "").PadLeft(2, '0'));
-								replaceToStrEdit = replaceToStrEdit.Replace("DD", (time.Day + "").PadLeft(2, '0'));
+                            string paisheTime = "";
+                            if (paishe) //拍摄时间优先
+                            {
+                                try { 
+                                    paisheTime = GetTakePicDateTime(GetExifProperties(file));
+                           //         MessageBox.Show("paisheTime:" + paisheTime);
+                                    string[] yyyymmdd = paisheTime.Split(' ')[0].Split(':');
+                                    string[] hhmm = paisheTime.Split(' ')[1].Split(':');
+                                    
+                                    if (paisheTime != "")
+                                    {
+                                        replaceToStrEdit = dataForm.TextTo;
+                                        replaceToStrEdit = replaceToStrEdit.Replace("YYYY", yyyymmdd[0]);
+                                        replaceToStrEdit = replaceToStrEdit.Replace("MM", yyyymmdd[1].PadLeft(2, '0'));
+                                        replaceToStrEdit = replaceToStrEdit.Replace("DD", yyyymmdd[2].PadLeft(2, '0'));
 
-								replaceToStrEdit = replaceToStrEdit.Replace("HH", (time.Hour + "").PadLeft(2, '0'));
-								replaceToStrEdit = replaceToStrEdit.Replace("MI", (time.Minute + "").PadLeft(2, '0'));
-								replaceToStrEdit = replaceToStrEdit.Replace("SS", (time.Second + "").PadLeft(2, '0'));
-							}
-						}
+                                        replaceToStrEdit = replaceToStrEdit.Replace("HH", hhmm[0].PadLeft(2, '0'));
+                                        replaceToStrEdit = replaceToStrEdit.Replace("MI", hhmm[1].PadLeft(2, '0'));
+                                        replaceToStrEdit = replaceToStrEdit.Replace("SS", hhmm[2].Substring(0,2).PadLeft(2, '0')); //秒后面有个终止符，要去掉
+                                    }
+
+                              //      MessageBox.Show("replaceToStrEdit:" + replaceToStrEdit);
+                                } catch(Exception e)
+                                {
+                                    paisheTime = "";
+                            //        MessageBox.Show("e:" + e.Message);
+                                }
+                            }
+                            if (paisheTime == "")
+                            {
+                                if (dataForm.ReplaceType == "1")
+                                {
+                                    //作成时间
+                                    time = fi.CreationTime;
+                                }
+                                else
+                                {
+                                    //更新时间
+                                    time = fi.LastWriteTime;
+                                }
+                                replaceToStrEdit = dataForm.TextTo;
+                                replaceToStrEdit = replaceToStrEdit.Replace("YYYY", time.Year + "");
+                                replaceToStrEdit = replaceToStrEdit.Replace("MM", (time.Month + "").PadLeft(2, '0'));
+                                replaceToStrEdit = replaceToStrEdit.Replace("DD", (time.Day + "").PadLeft(2, '0'));
+
+                                replaceToStrEdit = replaceToStrEdit.Replace("HH", (time.Hour + "").PadLeft(2, '0'));
+                                replaceToStrEdit = replaceToStrEdit.Replace("MI", (time.Minute + "").PadLeft(2, '0'));
+                                replaceToStrEdit = replaceToStrEdit.Replace("SS", (time.Second + "").PadLeft(2, '0'));
+                            }
+
+                        }
 
 						//nameTo文件名设置
 						if (textFromArr[i] == null || textFromArr[i] == "")
 						{
 							nameTo = replaceToStrEdit + nameSuff;
-						}
+                        }
 						else
 						{
 							nameTo = nameTo.Replace(textFromArr[i], replaceToStrEdit);
 						}
-					}
+
+                        
+                    }
 
 					if (nameFrom != nameTo)
 					{
@@ -197,9 +231,9 @@ namespace ReNameTool
 						}
 						catch (Exception)
 						{
-							//MessageBox.Show(path + nameTo + " 已经存在。\n" + path + nameFrom + " 的名字替换失败。");
+							//MessageBox.Show(nameTo + "已经存在。\n" + nameFrom + " 的名字替换失败。" + e.Message);
 
-							int index = 2;
+                            int index = 2;
 							while (File.Exists(path + replaceToStrEdit + "_" + index + nameSuff))
 							{
 								index++;
@@ -243,7 +277,7 @@ namespace ReNameTool
 				fileList = Directory.GetDirectories(path, "*", SearchOption.TopDirectoryOnly);
 				foreach (String file in fileList)
 				{
-					changeName(file, folderFlg, fileFlg, subFlg);
+					changeName(file, folderFlg, fileFlg, subFlg, paishe);
 				}
 			}
 		}
@@ -255,7 +289,8 @@ namespace ReNameTool
 			myReg.setRegValue("CheckFolder", dataForm.CheckFolder.ToString());
 			myReg.setRegValue("CheckFile", dataForm.CheckFile.ToString());
 			myReg.setRegValue("CheckSubFolder", dataForm.CheckSubFolder.ToString());
-			myReg.setRegValue("TextFrom", dataForm.TextFrom.ToString());
+            myReg.setRegValue("CheckPaishe", dataForm.CheckPaishe.ToString());
+            myReg.setRegValue("TextFrom", dataForm.TextFrom.ToString());
 			myReg.setRegValue("ReplaceType", dataForm.ReplaceType.ToString());
 			myReg.setRegValue("TextTo0", dataForm.getTextToArr(0));
 			myReg.setRegValue("TextTo1", dataForm.getTextToArr(1));
@@ -297,5 +332,50 @@ namespace ReNameTool
 				}
 			}
 		}
+
+         public   PropertyItem[] GetExifProperties( string  fileName)
+        {
+            FileStream stream = null;
+            try
+            {
+                stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                // 通过指定的数据流来创建Image
+                System.Drawing.Image image = System.Drawing.Image.FromStream(stream, true, false);
+                PropertyItem[] r = image.PropertyItems;
+                image.Dispose();
+                return r;
+            } catch(Exception e)
+            {
+         //       MessageBox.Show("e1:" + e.Message);
+                return null;
+            } finally
+            {
+                if (stream != null)
+                {
+                    stream.Close();
+                }
+            }
+
+        }
+
+         private string GetTakePicDateTime(System.Drawing.Imaging.PropertyItem[] parr)
+        {
+            if (parr == null)
+            {
+                return "";
+            }
+            Encoding ascii  =  Encoding.ASCII;
+             // 遍历图像文件元数据，检索所有属性
+             foreach  (System.Drawing.Imaging.PropertyItem p  in  parr)
+            {
+                 // 如果是PropertyTagDateTime，则返回该属性所对应的值
+                 if  (p.Id  ==   0x0132 || p.Id == 0x9003)
+                {
+                     return  ascii.GetString(p.Value);
+                }
+            }
+             // 若没有相关的EXIF信息则返回N/A
+             return "";
+        }
 	}
 }

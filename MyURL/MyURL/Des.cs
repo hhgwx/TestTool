@@ -20,7 +20,7 @@ namespace MyURL
             //
         }
 
-        private static string key = "zhoufoxcn";
+        private static string key = "guanwx1111"; //"zhoufoxcn";
 
         /// <summary>
         /// 对称加密解密的密钥

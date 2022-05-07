@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyURL"
         mc:Ignorable="d"
-        Title="书签管家" Height="710" Width="800" Closing="Window_Closing">
+        Title="书签管家" Height="710" Width="900" Closing="Window_Closing" WindowStartupLocation="CenterScreen" SizeChanged="Window_SizeChanged">
     <Window.Resources>
         <Style TargetType="{x:Type ListViewItem}">
             <Setter Property="Background" Value="AliceBlue"/>
@@ -32,42 +32,55 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="80" />
                     <ColumnDefinition Width="150" />
                     <ColumnDefinition Width="85" />
                     <ColumnDefinition Width="85" />
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="85" />
-                    <ColumnDefinition Width="85" />
+                    <ColumnDefinition Width="365" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="textBox" Grid.Column="1" HorizontalAlignment="Center" Text="" VerticalAlignment="Center"  Width="150"/>
-                <Button x:Name="btn_AddClass" Grid.Column="2" Content="增加新分类名" VerticalAlignment="Center" HorizontalAlignment="Center"  Width="80" Click="btn_AddClass_Click"/>
-                <Button x:Name="btn_ChangeClass" Grid.Column="3" Content="修改现分类名" VerticalAlignment="Center" HorizontalAlignment="Center"  Width="80" Click="btn_ChangeClass_Click"/>
-                <Label x:Name="label1" Content="默认浏览器" Grid.Column="5" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                <ComboBox x:Name="comboBox_browser" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="165"/>
-
+                <CheckBox x:Name="CheckBox_Personal" BorderBrush="Bisque" Content="私密分类" HorizontalAlignment="Center" VerticalAlignment="Center"></CheckBox>
+                <TextBox x:Name="textBox" BorderBrush="Bisque" Grid.Column="1" HorizontalAlignment="Center" Text="" VerticalAlignment="Center"  Width="150"/>
+                <Button x:Name="btn_AddClass" BorderBrush="Bisque" Grid.Column="2" Content="增加新分类" VerticalAlignment="Center" HorizontalAlignment="Center"  Width="80" Click="btn_AddClass_Click"/>
+                <Button x:Name="btn_ChangeClass" BorderBrush="Bisque" Grid.Column="3" Content="修改现分类" VerticalAlignment="Center" HorizontalAlignment="Center"  Width="80" Click="btn_ChangeClass_Click"/>
 
                 <Label x:Name="label" Content="分类列表" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
                 <ComboBox x:Name="comboBox" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" DropDownClosed="comboBox_DropDownClosed"/>
                 <Button x:Name="btn_DelClass" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Content="删除当前分类" VerticalAlignment="Center" HorizontalAlignment="Center" Width="165" Click="btn_DelClass_Click"/>
-                <Button x:Name="btn_AddBookMark" Grid.Row="1" Grid.Column="6" Content="添加书签" VerticalAlignment="Center" HorizontalAlignment="Center"  Width="80" Click="btn_AddBookMark_Click" />
-                <Button x:Name="btn_EditBookMark" Grid.Row="1" Grid.Column="7" Content="编辑书签" VerticalAlignment="Center" HorizontalAlignment="Center"  Width="80" Click="btn_EditBookMark_Click"/>
+
+                <Grid Grid.Column="4" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="85" />
+                        <ColumnDefinition Width="85" />
+                        <ColumnDefinition Width="85" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label x:Name="label1" Content="默认浏览器" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="comboBox_browser" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="165"/>
+                    <Button x:Name="btn_AddBookMark" Grid.Row="1" Grid.Column="1" Content="添加书签" VerticalAlignment="Center" HorizontalAlignment="Center"  Width="80" Click="btn_AddBookMark_Click" />
+                    <Button x:Name="btn_EditBookMark" Grid.Row="1" Grid.Column="2" Content="编辑书签" VerticalAlignment="Center" HorizontalAlignment="Center"  Width="80" Click="btn_EditBookMark_Click"/>
+                    <Button x:Name="button" Grid.Column="3" Grid.Row="1" Content="密码修改" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Click="button_Click"/>
+
+                </Grid>
 
             </Grid>
-            <ListView x:Name="listView_View" HorizontalAlignment="Left" Height="580" Grid.Row="1" VerticalAlignment="Top" MinWidth="780" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible" MouseLeftButtonDown="listView_View_MouseLeftButtonDown" MouseLeftButtonUp="listView_View_MouseLeftButtonUp" SelectionChanged="listView_View_SelectionChanged">
+            <ListView x:Name="listView_View" HorizontalAlignment="Left" Height="580" Grid.Row="1" VerticalAlignment="Top" MinWidth="890" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible" MouseLeftButtonDown="listView_View_MouseLeftButtonDown" MouseLeftButtonUp="listView_View_MouseLeftButtonUp" SelectionChanged="listView_View_SelectionChanged">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="番号" Width="35" DisplayMemberBinding="{Binding Path=No}"/>
-                        <GridViewColumn Header="说明" Width="185" DisplayMemberBinding="{Binding Path=ShuoMing}"/>
-                        <GridViewColumn Header="URL(拖动行可改变顺序)" Width="460" DisplayMemberBinding="{Binding Path=Url}"/>
+                        <GridViewColumn Header="说明" Width="240" DisplayMemberBinding="{Binding Path=ShuoMing}"/>
+                        <GridViewColumn Header="URL(拖动行可改变顺序)" Width="500" DisplayMemberBinding="{Binding Path=Url}"/>
                         <!--<GridViewColumn Header="USER" Width="80" DisplayMemberBinding="{Binding Path=User}"/>
                         <GridViewColumn Header="PSW" Width="80" DisplayMemberBinding="{Binding Path=Psw}"/>-->
-                        <GridViewColumn Header="操作" Width="88">
+                        <GridViewColumn Header="操作" Width="90">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="btn_LineRun" Content="URL跳转" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,3,0,3"  Width="75" Height="20" Click="btn_LineRun_Click" Tag="{Binding Url}"></Button>
+                                    <Button x:Name="btn_LineRun" Content="URL跳转" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,2,0,2" Width="80" Click="btn_LineRun_Click" Tag="{Binding Url}" Uid="{Binding Psw}"></Button>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -75,42 +88,42 @@
                 </ListView.View>
             </ListView>
 
-            <ListView x:Name="listView_Edit" HorizontalAlignment="Left" Height="580" Grid.Row="1" VerticalAlignment="Top" MinWidth="780" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible" Visibility="Hidden">
+            <ListView x:Name="listView_Edit" HorizontalAlignment="Left" Height="580" Grid.Row="1" VerticalAlignment="Top" MinWidth="890" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible" Visibility="Hidden">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="番号" Width="35" DisplayMemberBinding="{Binding Path=No}"/>
-                        <GridViewColumn Header="说明" Width="185">
+                        <GridViewColumn Header="说明" Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox x:Name="TextBox_ShuoMing" Text="{Binding ShuoMing}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,0"  Width="175" Height="25"></TextBox>
+                                    <TextBox x:Name="TextBox_ShuoMing" Text="{Binding ShuoMing}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="190" ></TextBox>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="URL" Width="305">
+                        <GridViewColumn Header="URL" Width="320">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox x:Name="TextBox_Url" Text="{Binding Url}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,0"  Width="295" Height="25"></TextBox>
+                                    <TextBox x:Name="TextBox_Url" Text="{Binding Url}" VerticalAlignment="Center" HorizontalAlignment="Center"  Width="310" ></TextBox>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="USER" Width="80">
+                        <GridViewColumn Header="USER" Width="110">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox x:Name="TextBox_User" Text="{Binding User}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,0"  Width="70" Height="25"></TextBox>
+                                    <TextBox x:Name="TextBox_User" Text="{Binding User}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100"></TextBox>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="PSW" Width="80">
+                        <GridViewColumn Header="PSW" Width="110">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox x:Name="TextBox_Psw" Text="{Binding Psw}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,0"  Width="70" Height="25"></TextBox>
+                                    <TextBox x:Name="TextBox_Psw" Text="{Binding Psw}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100"></TextBox>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="操作" Width="88">
+                        <GridViewColumn Header="操作" Width="90">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="btn_LineDel" Content="删除" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,3,0,3"  Width="70" Height="20" Click="btn_LineDel_Click" Tag="{Binding No}"></Button>
+                                    <Button x:Name="btn_LineDel" Content="删除" Margin="0,2,0,2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="80"  Click="btn_LineDel_Click" Tag="{Binding No}"></Button>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -126,7 +139,6 @@
                     <ColumnDefinition Width="150" />
                     <ColumnDefinition Width="50" />
                     <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="85" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Label x:Name="label2" Grid.Column="0" Content="参数1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
@@ -135,11 +147,9 @@
                 <TextBox x:Name="textBox_parm2" Grid.Column="3" HorizontalAlignment="Center"  Text="" VerticalAlignment="Center" Width="150"/>
                 <Label x:Name="label4" Grid.Column="4" Content="参数3" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 <TextBox x:Name="textBox_parm3" Grid.Column="5" HorizontalAlignment="Center"  Text="" VerticalAlignment="Center" Width="150"/>
-                <Button x:Name="button" Grid.Column="7" Content="密码修改" HorizontalAlignment="left" VerticalAlignment="Center" Width="75" Click="button_Click"/>
-
             </Grid>
-            
- 
+
+
         </Grid>
 
     </Grid>

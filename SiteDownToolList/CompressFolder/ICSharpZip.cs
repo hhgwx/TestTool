@@ -77,12 +77,12 @@ ZipOutputStream zipStream = null;
 		}
 
 		/// <summary>
-		/// 递归压缩文件
+/*		/// 递归压缩文件
 		/// </summary>
 		/// <param name="sourceFilePath">待压缩的文件或文件夹路径</param>
 		/// <param name="zipStream">打包结果的zip文件路径（类似 D:\WorkSpace\a.zip）,全路径包括文件名和.zip扩展名</param>
 		/// <param name="staticFile"></param>
-		/*		private static void CreateZipFiles (string sourceFilePath, ZipOutputStream zipStream, string staticFile) 
+				private static void CreateZipFiles (string sourceFilePath, ZipOutputStream zipStream, string staticFile) 
 				{
 					Crc32 crc = new Crc32();
 					string[] filesArray = Directory.GetFileSystemEntries(sourceFilePath);

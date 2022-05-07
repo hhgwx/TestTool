@@ -244,7 +244,7 @@ namespace InchPhotosCSharp
 
 			rectangle_path.Data = myRectangleGeometry;
 
-			sizePer = Rectangle_width / width;
+			sizePer = (Rectangle_width*1.0) / width;
 		}
 
 
@@ -316,7 +316,7 @@ namespace InchPhotosCSharp
 			int i = 0;
 			int j = 0;
 			//判断，横着放，还是竖着放
-			if ((equalPicWidth / (Rectangle_width + distance * 2)) * (equalPicHeight / (Rectangle_height + distance * 2)) <
+			if ((equalPicWidth / (Rectangle_width + distance * 2)) * (equalPicHeight / (Rectangle_height + distance * 2)) <  //怎么放张数多判断
 				(equalPicWidth / (Rectangle_height + distance * 2)) * (equalPicHeight / (Rectangle_width + distance * 2)))
 			{
 				i = equalPicWidth / Rectangle_height;
@@ -337,15 +337,19 @@ namespace InchPhotosCSharp
 
 			result_canvas.Children.Clear();
 
-			for (int iTemp = 0;iTemp < i; iTemp++) {
+            //图片居中用
+            int distanceLeft = (int)(result_canvas.Width - (Rectangle_width * toBig + distance * 2) * i) / 2;
+            int distanceTop = (int)(result_canvas.Height - (Rectangle_height * toBig + distance * 2) * j) / 2;
+
+            for (int iTemp = 0;iTemp < i; iTemp++) {
 				for (int jTemp = 0; jTemp < j; jTemp++)
 				{
 					Image image = new Image();
 					image.Source = renderTargetBitmap;
 					image.Width = Rectangle_width * toBig;
 					image.Height = Rectangle_height * toBig;
-					image.SetValue(Canvas.LeftProperty, jTemp * (Rectangle_width * toBig + distance * 2) * 1.0 + distance);
-					image.SetValue(Canvas.TopProperty, iTemp * (Rectangle_height * toBig + distance * 2) * 1.0 + distance);
+					image.SetValue(Canvas.LeftProperty, jTemp * (Rectangle_width * toBig + distance * 2) * 1.0 + distanceLeft);
+					image.SetValue(Canvas.TopProperty, iTemp * (Rectangle_height * toBig + distance * 2) * 1.0 + distanceTop);
 					result_canvas.Children.Add(image);
 				}
 			}

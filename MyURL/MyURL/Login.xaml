@@ -5,17 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyURL"
         mc:Ignorable="d"
-        Title="密码" Height="141" Width="300">
+        Title="密码" Height="170" Width="300">
     <Grid>
         <Grid>
-            <Label x:Name="label1" Content="初次请设置密码(编辑书签时用)" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-            <Label x:Name="label2" Content="请输入密码" HorizontalAlignment="Left" Margin="48,31,0,0" VerticalAlignment="Top" FontSize="12"/>
-            <Label x:Name="label3" Content="请再次输入密码" HorizontalAlignment="Left" Margin="24,58,0,0" VerticalAlignment="Top" FontSize="12"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="35"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="label1" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="初次请设置密码(编辑书签时用)" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+            <Label x:Name="label2" Grid.Row="1" Grid.Column="0" Content="请输入密码" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <Label x:Name="label3" Grid.Row="2" Grid.Column="0" Content="请再次输入密码" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
 
-            <PasswordBox  x:Name="passwordBox1" HorizontalAlignment="Left" Height="23" Margin="123,30,0,0" VerticalAlignment="Top" Width="100" KeyDown="passwordBox1_KeyDown"/>
-            <PasswordBox  x:Name="passwordBox2" HorizontalAlignment="Left" Height="23" Margin="123,58,0,0" VerticalAlignment="Top" Width="100" KeyDown="passwordBox2_KeyDown"/>
-            <Button x:Name="button" Content="设置" HorizontalAlignment="Left" Margin="123,86,0,0" VerticalAlignment="Top" Width="100" Click="button_Click"/>
+            <PasswordBox  x:Name="passwordBox1" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="180" KeyDown="passwordBox1_KeyDown"/>
+            <PasswordBox  x:Name="passwordBox2" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="180" KeyDown="passwordBox2_KeyDown"/>
+            <Button x:Name="button" Content="设置" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="180" Click="button_Click"/>
 
         </Grid>
     </Grid>
